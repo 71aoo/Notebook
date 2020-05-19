@@ -4,11 +4,11 @@
 
 **pthread_create**是**UNIX**操作系统创建**线程**的函数，
 
-![image-20200517164448219](.\NoteImg\image-20200517164448219.png)
+![image-20200517164448219](./NoteImg/image-20200517164448219.png)
 
 主要用来在系统种启动一个线程（实际上就是确定调用该线程函数的入口点）
 
-![image-20200517164654712](.\NoteImg\image-20200517164654712.png)
+![image-20200517164654712](./NoteImg/image-20200517164654712.png)
 
 ```c
 int pthread_create(
@@ -80,7 +80,7 @@ int main(){
 gcc thread.c -o thread -lpthread
 ```
 
-![image-20200517173757175](.\NoteImg\image-20200517173757175.png)
+![image-20200517173757175](./NoteImg/image-20200517173757175.png)
 
 运行
 
@@ -88,7 +88,7 @@ gcc thread.c -o thread -lpthread
 ./thread
 ```
 
-![image-20200517173838321](.\NoteImg\image-20200517173838321.png)
+![image-20200517173838321](./NoteImg/image-20200517173838321.png)
 
 可以看到主线程和新建线程交替打印。需要注意的是，在linux下主线程结束，如果不设置主线程阻塞，等待其他线程，则主线程启动的其他线程也会结束（**其实是主线程return后，调用glibc库函数exit，exit做完清理工作之后调用_exit系统调用退出改进程，进程结束，会结束该进程的所有线程**）
 
