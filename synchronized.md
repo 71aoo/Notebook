@@ -77,14 +77,7 @@ public class SyncExample {
 
 上图为 **Hotspot** 的源码种对对象头的注释,整理一下得出下表
 
-|                   Object Header（128bits）                   |              |
-| :----------------------------------------------------------: | :----------: |
-|                   **Mark Word（64bits）**                    |  **State**   |
-| unused: 25 \| identity_hashcode : 31 \| unused : 1 \| age : 4 \| biased_lock : 1 \| lock : 2 |  **Normal**  |
-| thread : 54 \|             epoch : 2             \| unused : 1 \| age : 4 \| biased_lock : 1 \| lock : 2 |  **Biased**  |
-| ptr_to_lock_record : 62                                             \| lock : 2 | **L locked** |
-| ptr_to_heavyweight_monitor : 62                                 \| lock : 2 | **H Locked** |
-|                         \| lock : 2                          |    **GC**    |
+![image-20200525170634543](./NoteImg/image-20200525170634543.png)
 
 **L locked**（**Lightweight Locked**）,**H Locked**（**Heavyweight Locked**）
 
