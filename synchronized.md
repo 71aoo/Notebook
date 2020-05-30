@@ -73,11 +73,11 @@ public class SyncExample {
 
 **Java** 对象头就是 **Java** 存储对象真正有效信息的的区域。
 
-![image-20200520153255759](./NoteImg/image-20200520153255759.png)
+![image-20200520153255759](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200520153255759.png)
 
 上图为 **Hotspot** 的源码种对对象头的注释,整理一下得出下表
 
-![image-20200525170634543](./NoteImg/image-20200525170634543.png)
+![image-20200525170634543](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525170634543.png)
 
 **L locked**（**Lightweight Locked**）,**H Locked**（**Heavyweight Locked**）
 
@@ -224,7 +224,7 @@ public class One {
 }
 ```
 
-![image-20200522143734127](./NoteImg/image-20200522143734127.png)
+![image-20200522143734127](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522143734127.png)
 
 可以看到下面有两行打印出对象的实例数据，按照前面所说，**int** 类型数据大小对应 **4 bytes**， **boolean** 类型为 **1bytes** ，多出 **5 bytes**，加上对象头 **12 bytes**，总共 **17 bytes**，因为对象都是**以8 bytes的粒度来对齐的**，所以补了 **7 bytes **对齐数据，全部加起来一共 **24 bytes**。
 
@@ -232,15 +232,15 @@ public class One {
 
 知道了**实例数据**和**对齐字节**的意义，那么继续探究对象头。对齐字节存在的意义是弥补实例数据所带来差额，而对象数据大小并不会改变，只有**12 bytes**。
 
-![image-20200522151453017](./NoteImg/image-20200522151453017.png)
+![image-20200522151453017](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522151453017.png)
 
 在**Hotspot术语表**对**Object header**解释：由两个 **words** 组成。除去前面已经解释过一个： **Mark_Word**。
 
-![image-20200522151727209](./NoteImg/image-20200522151727209.png)
+![image-20200522151727209](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522151727209.png)
 
 还有一个 **Klass_Word**
 
-![image-20200522152048399](./NoteImg/image-20200522152048399.png)
+![image-20200522152048399](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522152048399.png)
 
 该部分占 **4 bytes**（**Mark_Word 占 8 bytes**），并且该部分指向的是**对象的元数据**，就是JVM通过这个指针确定对象是哪个类的实例（猜测，依据是**同一个类实例化出来的对象，该值一样**）。
 
@@ -263,11 +263,11 @@ public class JOLExample {
 }
 ```
 
-![image-20200522152944863](./NoteImg/image-20200522152944863.png)
+![image-20200522152944863](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522152944863.png)
 
 那么对象头的**words**结构是：
 
-![image-20200522153330673](./NoteImg/image-20200522153330673.png)
+![image-20200522153330673](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522153330673.png)
 
 验证
 
@@ -295,7 +295,7 @@ public class JOLExample {
 }
 ```
 
-![image-20200522154421896](./NoteImg/image-20200522154421896.png)
+![image-20200522154421896](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522154421896.png)
 
 根据上面的表格，这是一个正常（**Normal，无锁状态**）的对象，其 **HashCode** 占 **31bits**，**unused** 占 **25bits**，
 
@@ -304,7 +304,7 @@ public class JOLExample {
 00000000 00000000 00000000 0[1100100 10100010 10010100 10100110 00000001]
 ```
 
-![image-20200522160918624](./NoteImg/image-20200522160918624.png)
+![image-20200522160918624](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522160918624.png)
 
 确实是**HashCode**值，但是为什么是反过来的？
 
@@ -312,7 +312,7 @@ public class JOLExample {
 
 接下只剩下 **1byte** ，也就是 **8 bits**，但它是**和锁有直接关系的部分**，也就是和 **synchronized** 关键字最紧密联系的部分，最直观感受到 **synchronized** 关键字锁住对象所带来的变化。根据表格，结构如下
 
-![image-20200522162155451](./NoteImg/image-20200522162155451.png)
+![image-20200522162155451](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522162155451.png)
 
 **8 bits** 中后 **3 bits** 直接表示五种对象状态，接下来探讨基本都是围绕这 **3 bits**
 
@@ -338,7 +338,7 @@ public class JOLExample {
 
 前面已经打印过了，对象 **one** 并没有进行任何加锁操作，所以前面 **8 bits** 是 **00000001**
 
-![image-20200522203006233](./NoteImg/image-20200522203006233.png)
+![image-20200522203006233](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522203006233.png)
 
 
 
@@ -386,7 +386,7 @@ public class JOLExample {
 
 输出
 
-![image-20200522204943506](./NoteImg/image-20200522204943506.png)
+![image-20200522204943506](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522204943506.png)
 
 这里结果出乎，竟然不是偏向锁。难道前面所说的理论不对吗？
 
@@ -400,7 +400,7 @@ public class JOLExample {
 java -XX:+PrintFlagsFinal
 ```
 
-![image-20200522210112667](./NoteImg/image-20200522210112667.png)
+![image-20200522210112667](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522210112667.png)
 
 当然也可以修改 **JVM** 参数，来取消延时加载偏向锁。
 
@@ -410,7 +410,7 @@ java -XX:BiasedLockingStartupDelay=0		//毫秒
 
 重新打印输出
 
-![image-20200522210624336](./NoteImg/image-20200522210624336.png)
+![image-20200522210624336](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522210624336.png)
 
 可以看到，偏向锁确实是偏向锁，但为什么加锁前后改变的是后面 **3 bytes**，还有，如果我设置了加载偏向锁的延时为 0，那么无锁状态呢？
 
@@ -420,15 +420,15 @@ java -XX:BiasedLockingStartupDelay=0		//毫秒
 
 也就是说，在加锁之前，虽然也是显示偏向锁的状态，但是并不是真正的上了偏向锁，这个状态叫**可偏向状态（相当于无锁）**，是准备上偏向锁的阶段，所以后面的 **7 bytes** 全部是空值。
 
-![image-20200522212539258](./NoteImg/image-20200522212539258.png)
+![image-20200522212539258](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522212539258.png)
 
 在使用 **synchronized** 关键字给对象上锁时，会检查该对象是否处于一个**可偏向状态**，如果是可偏向状态，则通过**CAS（旧的内存值：可偏向状态，预期值：可偏向状态，新值：线程ID）** 将原本空值修改为 **ThreadID和epoch**，这时候才是真正给对象上了锁。
 
-![image-20200522213600039](./NoteImg/image-20200522213600039.png)
+![image-20200522213600039](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522213600039.png)
 
 但是线程不会主动撤销偏向锁，偏向锁只有遇到其他线程尝试竞争偏向锁时，持有偏向锁的线程才会撤销锁。所以即使在同步代码块执行完成之后，对象还是偏向锁状态。而这样，如果下次还是该线程，那么直接会获得锁，不需要重新进入加锁过程，提高性能。
 
-![image-20200522213848366](./NoteImg/image-20200522213848366.png)
+![image-20200522213848366](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200522213848366.png)
 
 这里偏向锁的释放和撤销是两个概念：**撤销是指在获取偏向锁的过程因为不满足条件导致要将锁对象改为非偏向锁状态；释放是指退出同步块时的过程。**
 
@@ -505,25 +505,25 @@ public class JOLExample {
 
 结果
 
-![image-20200523182342410](./NoteImg/image-20200523182342410.png)
+![image-20200523182342410](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200523182342410.png)
 
 **分析：**
 
 在**加锁前（before）**，因为已关闭延时，所以在加锁前是可偏向状态。
 
-![image-20200523203356138](./NoteImg/image-20200523203356138.png)
+![image-20200523203356138](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200523203356138.png)
 
 第一次是加锁，因为 **t1** 在 **t2** 启动之前用了 **join**，所以不存在多线程竞争，锁偏向 **t1** 线程。
 
-![image-20200523203831543](./NoteImg/image-20200523203831543.png)
+![image-20200523203831543](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200523203831543.png)
 
 **t2** 启动要给对象加锁，可是对象已经是偏向锁了，又没达到重偏向条件（批量重偏向），并且持有偏向锁的线程已经死亡，所以膨胀为轻量级锁（有人说会重偏向t2，个人感觉不正确，后面会解释）。
 
-![image-20200523204742514](./NoteImg/image-20200523204742514.png)
+![image-20200523204742514](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200523204742514.png)
 
 最后所有子线程死亡，轻量级锁会主动释放，对象变为无锁状态。
 
-![image-20200523205053804](./NoteImg/image-20200523205053804.png)
+![image-20200523205053804](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200523205053804.png)
 
 #### 重量级锁
 
@@ -592,7 +592,7 @@ public class JOLExample {
 
 输出
 
-![image-20200524144747712](./NoteImg/image-20200524144747712.png)
+![image-20200524144747712](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524144747712.png)
 
 
 
@@ -600,11 +600,11 @@ public class JOLExample {
 
 关闭偏向锁的延时，代码同上
 
-![image-20200524145123180](./NoteImg/image-20200524145123180.png)
+![image-20200524145123180](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524145123180.png)
 
 ###### 轻量级锁到重量级锁
 
-![image-20200524150120514](./NoteImg/image-20200524150120514.png)
+![image-20200524150120514](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524150120514.png)
 
 **分析**：
 
@@ -616,7 +616,7 @@ public class JOLExample {
 
 **流程图**
 
-![image-20200524155445490](./NoteImg/image-20200524155445490.png)
+![image-20200524155445490](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524155445490.png)
 
 #### 无锁态的膨胀
 
@@ -632,7 +632,7 @@ public class JOLExample {
 
 如果对象为无锁状态（001），虚拟机首先将在当前线程的栈帧中建立一个名为锁记录（**Lock Record**）的空间，用于存储锁对象目前的 **Mark Word** 的拷贝。
 
-![image-20200524164437982](./NoteImg/image-20200524164437982.png)
+![image-20200524164437982](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524164437982.png)
 
 
 
@@ -640,11 +640,11 @@ public class JOLExample {
 
 然后拷贝对象头中的 **Mark Word** 复制到锁记录中。
 
-![20200524165814016.png](./NoteImg/image-20200524165814016.png)
+![20200524165814016.png](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524165814016.png)
 
 拷贝成功后，**JVM** 将使用 **CAS** 操作（具体未知）尝试将对象的 **Mark Word** 更新为指向 **Lock Record** 的指针，并将 **Lock Record** 里的**owner** 指针指向对象的 **Mark Word**。
 
-![image-20200524171050346](./NoteImg/image-20200524171050346.png)
+![image-20200524171050346](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524171050346.png)
 
 如果这个更新动作成功了，那么这个线程就拥有了该对象的锁，并且对象 **Mark Word** 的锁标志位设置为**“000”**，表示此对象处于轻量级锁定状态。
 
@@ -678,11 +678,11 @@ ObjectMonitor() {
 
 **Monitor** 的 **_header** 字段指向锁对象的 **Mark_Word**，**_object** 指向锁对象。
 
-![image-20200524203211910](./NoteImg/image-20200524203211910.png)
+![image-20200524203211910](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524203211910.png)
 
 用 **CAS** 指令把 ** **Monitor** 指针替换到对象头的 **Mark_Word**
 
-![image-20200524203552524](./NoteImg/image-20200524203552524.png)
+![image-20200524203552524](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200524203552524.png)
 
 #### 偏向锁的膨胀
 
@@ -746,7 +746,7 @@ public class JOLExample {
 
 结果
 
-![image-20200525111914047](./NoteImg/image-20200525111914047.png)
+![image-20200525111914047](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525111914047.png)
 
 如果对象处于偏向锁状态且处于同步代码块的执行中 **HashCode**，则锁会膨胀为重量级锁。
 
@@ -788,7 +788,7 @@ public class JOLExample {
 }
 ```
 
-结果![image-20200525111355073](./NoteImg/image-20200525111355073.png)
+结果![image-20200525111355073](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525111355073.png)
 
 ##### 重偏向（不存在）
 
@@ -849,11 +849,11 @@ public class JOLExample {
 
 结果
 
-![image-20200525113119281](./NoteImg/image-20200525113119281.png)
+![image-20200525113119281](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525113119281.png)
 
 这一看确实还是偏向锁，重新偏向了 **t2** ，但再仔细一看。
 
-![image-20200525113516828](./NoteImg/image-20200525113516828.png)
+![image-20200525113516828](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525113516828.png)
 
 **ThreadID（系统分配还是 JVM 分配未知）**一样，在这里可以做个推测。t1 死亡之后，再次分配（**是JVM还是系统分配，目前不清楚**）给 t2 的 ID 和 t1 的一样，因此偏向锁以为是同一个线程，继续执行，不会膨胀。
 
@@ -928,7 +928,7 @@ public class JOLExample {
 
 结果
 
-![image-20200525114901404](./NoteImg/image-20200525114901404.png)
+![image-20200525114901404](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525114901404.png)
 
 结果很明显，**线程ID**不一样，符合上面描述的锁膨胀的过程，并不存在重偏向。
 
@@ -944,7 +944,7 @@ public class JOLExample {
 java -XX:+PrintFlagsFinal
 ```
 
-![image-20200525143241957](./NoteImg/image-20200525143241957.png)
+![image-20200525143241957](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525143241957.png)
 
 JVM就认为该 **class** 产生对象的偏向锁有问题，因此会进行批量重偏向。
 
@@ -1061,9 +1061,9 @@ public class RebiasThread {
 
 **结果**
 
-![image-20200525150356292](./NoteImg/image-20200525150356292.png)
+![image-20200525150356292](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525150356292.png)
 
-![image-20200525150459367](./NoteImg/image-20200525150459367.png)
+![image-20200525150459367](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525150459367.png)
 
 **分析：**
 
@@ -1083,7 +1083,7 @@ t2 线程里第19个还是轻量锁，但第20，21已经开始批量重偏向�
 
 虽然有批量重偏向，但JVM不会一直重偏向下去，和前面批量重偏向机制一样，重偏向一次计数器+1，到达撤销阈值之后，
 
-![image-20200525153132147](./NoteImg/image-20200525153132147.png)
+![image-20200525153132147](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525153132147.png)
 
 JVM认为存在多线程竞争，会标记该class为不可偏向，开始批量撤销，膨胀。
 
@@ -1097,7 +1097,7 @@ JVM认为存在多线程竞争，会标记该class为不可偏向，开始批量
 
 轻量级锁首先会释放锁，成为无锁状态，再膨胀为重量级锁，中间过程与上面的无锁到重量级锁类似。
 
-![image-20200525155439945](./NoteImg/image-20200525155439945.png)
+![image-20200525155439945](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525155439945.png)
 
 
 
@@ -1139,7 +1139,7 @@ public class Compared {
 
 关闭延时，结果
 
-![image-20200525161754746](./NoteImg/image-20200525161754746.png)
+![image-20200525161754746](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525161754746.png)
 
 
 
@@ -1147,7 +1147,7 @@ public class Compared {
 
 代码同上，开启延时，结果
 
-![image-20200525161719004](./NoteImg/image-20200525161719004.png)
+![image-20200525161719004](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200525161719004.png)
 
 轻量锁与偏向锁性能差距可以达到 **10倍** 左右，说明优化还是很有必要
 

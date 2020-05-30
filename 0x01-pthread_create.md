@@ -33,7 +33,7 @@ int pthread_create(
 
 第四个参数 **void *arg** ：主体函数的参数 ，没有可直接传NULL
 
-![image-20200517164641971](C:\Users\Playwi0\AppData\Roaming\Typora\typora-user-images\image-20200517164641971.png)
+![image-20200517164641971](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200517164641971.png)
 
 成功创建线程，则返回 0，若失败，则返回出错编号
 
@@ -80,7 +80,7 @@ int main(){
 gcc thread.c -o thread -lpthread
 ```
 
-![image-20200517173757175](./NoteImg/image-20200517173757175.png)
+![image-20200517173757175](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200517173757175.png)
 
 运行
 
@@ -88,7 +88,7 @@ gcc thread.c -o thread -lpthread
 ./thread
 ```
 
-![image-20200517173838321](./NoteImg/image-20200517173838321.png)
+![image-20200517173838321](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200517173838321.png)
 
 可以看到主线程和新建线程交替打印。需要注意的是，在linux下主线程结束，如果不设置主线程阻塞，等待其他线程，则主线程启动的其他线程也会结束（**其实是主线程return后，调用glibc库函数exit，exit做完清理工作之后调用_exit系统调用退出改进程，进程结束，会结束该进程的所有线程**）
 

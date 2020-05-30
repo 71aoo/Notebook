@@ -47,7 +47,7 @@ Java创建一个线程主要有两种方式：
 
 #### start0
 
-![image-20200518165048135](./NoteImg/image-20200518165048135.png)
+![image-20200518165048135](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200518165048135.png)
 
 **Thread** 中 **start** 方法调用的是 **native** 方法 **start0**。**start** 方法上面有一串黄色注释，拿来看看
 
@@ -172,7 +172,7 @@ javac MyThread.java		//编译成class
 Javah MyThread			//编译成头文件
 ```
 
-![image-20200518202320142](./NoteImg/image-20200518202320142.png)
+![image-20200518202320142](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200518202320142.png)
 
 **MyThread.h**
 
@@ -260,7 +260,7 @@ static {
 }
 ```
 
-![image-20200518211127095](./NoteImg/image-20200518211127095.png)
+![image-20200518211127095](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200518211127095.png)
 
 运行测试
 
@@ -268,7 +268,7 @@ static {
 java -Djava.library.path=/home/ MyThread
 ```
 
-![image-20200518211353264](./NoteImg/image-20200518211353264.png)
+![image-20200518211353264](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200518211353264.png)
 
 成功运行，线程交错打印
 
@@ -368,7 +368,7 @@ gcc ‐fPIC ‐I $JAVA_HOM/include -I $JAVA_HOM/include/linux ‐shared ‐o lib
 java -Djava.library.path=/home/ MyThread
 ```
 
-![image-20200519154032500](./NoteImg/image-20200519154032500.png)
+![image-20200519154032500](https://gitee.com/Playwi0/MyImage/raw/master/NoteImage/image-20200519154032500.png)
 
 可以看到主线程和子线程交替执行。
 
